@@ -9,7 +9,7 @@ const app = express();
 app.use(json());
 app.use(urlencoded({ extended: false }));
 
-const uploader = multer({ dest: '/images' });
+const uploader = multer({ dest: 'images' });
 
 app.post('/upload', uploader.single('file'), async (req, res) => {
   const path = req.file.path;
@@ -22,4 +22,6 @@ app.get('/download/:objectName', (req, res) => {
   const key = req.params.objectName;
   const stream = s3.downloadObject(key);
   stream.pipe(res);
-})
+});
+
+app.listen(80);
