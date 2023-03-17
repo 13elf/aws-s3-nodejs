@@ -24,4 +24,10 @@ app.get('/download/:objectName', (req, res) => {
   stream.pipe(res);
 });
 
+app.delete('/delete/:objectName', async (req, res) => {
+  const key = req.params.objectName;
+  await s3.deleteObject(key);
+  res.status(204);
+})
+
 app.listen(80);
